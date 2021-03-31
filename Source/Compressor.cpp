@@ -9,3 +9,45 @@
 */
 
 #include "Compressor.h"
+
+void Compressor::setup(double sampleRate, int samplesPerBlock){
+    spec.sampleRate = sampleRate;
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.numChannels = 2;
+    
+    gain.prepare(spec);
+    gain.reset();
+    
+    compression.prepare(spec);
+}
+
+void Compressor::setRatio(float ratio){
+    
+    compression.setRatio(ratio);
+}
+
+void Compressor::setThreshold(float threshold){
+    compression.setThreshold(threshold);
+    
+}
+
+void Compressor::setAttack(float attackTimeMs){
+    
+    compression.setAttack(attackTimeMs);
+    
+}
+
+void Compressor::setRelease(float releaseTimeMs){
+    
+    compression.setRelease(releaseTimeMs);
+    
+}
+
+void Compressor::setParameters(float threshold, float ratio, float attackTime, float releaseTime){
+    
+    setRatio(ratio);
+    setThreshold(threshold);
+    setRelease(releaseTime);
+    setAttack(attackTime);
+    
+}

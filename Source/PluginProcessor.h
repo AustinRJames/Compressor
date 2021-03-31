@@ -9,6 +9,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "Compressor.h"
 
 //==============================================================================
 /**
@@ -56,10 +57,17 @@ public:
     float threshold;
     int ratio;
     float attackTime;
-    float releaseTime; 
+    float releaseTime;
+
+    
     
 private:
-
+    
+    Compressor compress;
+    
+    dsp::Gain<float> gain;
+    dsp::ProcessSpec spec;
+    dsp::Compressor<float> runCompressing;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChannelStripAudioProcessor)
 };
