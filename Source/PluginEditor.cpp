@@ -18,7 +18,10 @@ ChannelStripAudioProcessorEditor::ChannelStripAudioProcessorEditor (ChannelStrip
     setSize (500, 200  );
     
     //sliderAttachments = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.treeState, "threshold", thresholdSlider);
-    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.treeState, "threshold", thresholdSlider));
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.treeState, THRESH_ID, thresholdSlider));
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.treeState, ATTACKTIME_ID, attackTimeSlider));
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.treeState, RELEASETIME_ID, releaseTimeSlider));
+    comboAttachments.emplace_back(new AudioProcessorValueTreeState::ComboBoxAttachment(audioProcessor.treeState, RATIO_ID, ratioSelector));
     
     addAndMakeVisible(thresholdLabel);
     thresholdLabel.setText("Threshold", juce::dontSendNotification);
@@ -43,7 +46,7 @@ ChannelStripAudioProcessorEditor::ChannelStripAudioProcessorEditor (ChannelStrip
     thresholdSlider.setBounds(250, 125, 250, 60);
     addAndMakeVisible(thresholdSlider);
     
-    ratioSelector.addListener(this);
+    
     ratioSelector.addItem("1:1", 1);
     ratioSelector.addItem("2:1", 2);
     ratioSelector.addItem("3:1", 3);
@@ -102,51 +105,51 @@ void ChannelStripAudioProcessorEditor::resized()
 }
 
 
-void ChannelStripAudioProcessorEditor::comboBoxChanged(juce::ComboBox *comboBox){
-    if (comboBox == &ratioSelector){
-        if(ratioSelector.getSelectedId() == 1){
-            audioProcessor.ratio = 1;
-        }
-        if(ratioSelector.getSelectedId() == 2){
-            audioProcessor.ratio = 2;
-        }
-        if(ratioSelector.getSelectedId() == 3){
-            audioProcessor.ratio = 3;
-        }
-        if(ratioSelector.getSelectedId() == 4){
-            audioProcessor.ratio = 4;
-        }
-        if(ratioSelector.getSelectedId() == 5){
-            audioProcessor.ratio = 5;
-        }
-        if(ratioSelector.getSelectedId() == 6){
-            audioProcessor.ratio = 6;
-        }        if(ratioSelector.getSelectedId() == 7){
-            audioProcessor.ratio = 7;
-        }
-        if(ratioSelector.getSelectedId() == 8){
-            audioProcessor.ratio = 8;
-        }
-        if(ratioSelector.getSelectedId() == 9){
-            audioProcessor.ratio = 9;
-        }
-        if(ratioSelector.getSelectedId() == 10){
-            audioProcessor.ratio = 10;
-        }
-    }
-    
-}
+//void ChannelStripAudioProcessorEditor::comboBoxChanged(juce::ComboBox *comboBox){
+//    if (comboBox == &ratioSelector){
+//        if(ratioSelector.getSelectedId() == 1){
+//            audioProcessor.ratio = 1;
+//        }
+//        if(ratioSelector.getSelectedId() == 2){
+//            audioProcessor.ratio = 2;
+//        }
+//        if(ratioSelector.getSelectedId() == 3){
+//            audioProcessor.ratio = 3;
+//        }
+//        if(ratioSelector.getSelectedId() == 4){
+//            audioProcessor.ratio = 4;
+//        }
+//        if(ratioSelector.getSelectedId() == 5){
+//            audioProcessor.ratio = 5;
+//        }
+//        if(ratioSelector.getSelectedId() == 6){
+//            audioProcessor.ratio = 6;
+//        }        if(ratioSelector.getSelectedId() == 7){
+//            audioProcessor.ratio = 7;
+//        }
+//        if(ratioSelector.getSelectedId() == 8){
+//            audioProcessor.ratio = 8;
+//        }
+//        if(ratioSelector.getSelectedId() == 9){
+//            audioProcessor.ratio = 9;
+//        }
+//        if(ratioSelector.getSelectedId() == 10){
+//            audioProcessor.ratio = 10;
+//        }
+//    }
+//
+//}
 
-void ChannelStripAudioProcessorEditor::attackTimeChanged(juce::Slider *slider){
-    if(slider == &attackTimeSlider){
-        audioProcessor.attackTime = attackTimeSlider.getValue();
-        
-    }
-    
-}
-
-void ChannelStripAudioProcessorEditor::releaseTimeChanged(juce::Slider *slider){
-    if(slider == &releaseTimeSlider){
-        audioProcessor.releaseTime = releaseTimeSlider.getValue();
-    }
-}
+//void ChannelStripAudioProcessorEditor::attackTimeChanged(juce::Slider *slider){
+//    if(slider == &attackTimeSlider){
+//        audioProcessor.attackTime = attackTimeSlider.getValue();
+//
+//    }
+//
+//}
+//
+//void ChannelStripAudioProcessorEditor::releaseTimeChanged(juce::Slider *slider){
+//    if(slider == &releaseTimeSlider){
+//        audioProcessor.releaseTime = releaseTimeSlider.getValue();
+//    }
+//}

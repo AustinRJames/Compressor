@@ -34,6 +34,10 @@ public:
     void releaseTimeChanged(juce::Slider *slider) ;
     
     std::vector<std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>> sliderAttachments;
+    std::vector<std::unique_ptr<AudioProcessorValueTreeState::ComboBoxAttachment>> comboAttachments;
+    std::vector<std::unique_ptr<AudioProcessorValueTreeState::ButtonAttachment>> buttonAttachments;
+    
+    
     
 private:
     // This reference is provided as a quick way for your editor to

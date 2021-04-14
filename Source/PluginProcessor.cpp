@@ -41,6 +41,9 @@ AudioProcessorValueTreeState::ParameterLayout ChannelStripAudioProcessor::create
     std::vector<std::unique_ptr<RangedAudioParameter>> params;
     
     params.push_back(std::make_unique<AudioParameterFloat>(THRESH_ID,THRESH_NAME, -50.0f, 5.0f, 0.f) );
+    params.push_back(std::make_unique<AudioParameterFloat>(RATIO_ID, RATIO_NAME, 1, 10, 1)  );
+    params.push_back(std::make_unique<AudioParameterFloat>(ATTACKTIME_ID, ATTACKTIME_NAME, 0.01f, 800.f, 30.f)  );
+    params.push_back(std::make_unique<AudioParameterFloat>(RELEASETIME_ID,RELEASETIME_NAME, 1.f, 1000.f, 100.f) );
     
     return {params.begin(), params.end()    };
     
@@ -158,8 +161,14 @@ void ChannelStripAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     
     dsp::AudioBlock<float> block (buffer);
     
+    float thresholdValue = *treeState.getRawParameterValue(THRESH_ID);
+    int ratioValue = *treeState.getRawParameterValue(RATIO_ID);
+    float attackTimeValue = *treeState.getRawParameterValue(ATTACKTIME_ID);
+    float releaseTimeValue = *treeState.getRawParameterValue(RELEASETIME_ID);
     
-    compress.setParameters(threshold, ratio, attackTime, releaseTime);
+    
+    
+    compress.setParameters(thresholdValue, ratioValue, attackTimeValue, releaseTimeValue);
     
     compress.process(dsp::ProcessContextReplacing<float> (block));
 

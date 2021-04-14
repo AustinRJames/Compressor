@@ -14,6 +14,17 @@
 #define THRESH_ID "threshold"
 #define THRESH_NAME "Threshold"
 
+#define RATIO_ID "ratio"
+#define RATIO_NAME "Ratio"
+
+#define ATTACKTIME_ID "attackTime"
+#define ATTACKTIME_NAME "AttackTime"
+
+#define RELEASETIME_ID "releaseTime"
+#define RELEASETIME_NAME "ReleaseTime"
+
+
+
 //==============================================================================
 /**
 */
@@ -57,10 +68,10 @@ public:
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
-    float threshold;
-    int ratio;
-    float attackTime;
-    float releaseTime;
+    //float threshold;
+    //    int ratio;
+    //    float attackTime;
+    //    float releaseTime;
 
     AudioProcessorValueTreeState treeState;
     AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
