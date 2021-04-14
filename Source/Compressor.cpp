@@ -51,3 +51,10 @@ void Compressor::setParameters(float threshold, float ratio, float attackTime, f
     setAttack(attackTime);
     
 }
+
+void Compressor::process(dsp::ProcessContextReplacing<float> (block)){
+    
+    compression.process(block);
+    
+    
+}

@@ -143,7 +143,7 @@ void ChannelStripAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     
     compress.setParameters(threshold, ratio, attackTime, releaseTime);
     
-    runCompressing.process(dsp::ProcessContextReplacing<float> (block));
+    compress.process(dsp::ProcessContextReplacing<float> (block));
 
 
 }

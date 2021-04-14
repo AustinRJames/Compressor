@@ -17,7 +17,7 @@ class Compressor{
 public:
     
 
-    double processSample(double sampleRate);
+    void process(dsp::ProcessContextReplacing<float> (block));
     int processMaxBlockSize(int blockSize);
     int processNumChannels(int numChannels);
     
@@ -29,6 +29,8 @@ public:
     void setup(double sampleRate, int samplesPerBlock);
     
     void setParameters(float threshold, float ratio, float attackTime, float releaseTime);
+    
+    
     
 private:
     dsp::Gain<float> gain;

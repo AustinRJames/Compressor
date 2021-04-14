@@ -67,7 +67,7 @@ private:
     
     dsp::Gain<float> gain;
     dsp::ProcessSpec spec;
-    dsp::Compressor<float> runCompressing;
+    //dsp::Compressor<float> runCompressing;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ChannelStripAudioProcessor)
 };
