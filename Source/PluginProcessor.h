@@ -11,6 +11,9 @@
 #include <JuceHeader.h>
 #include "Compressor.h"
 
+#define THRESH_ID "threshold"
+#define THRESH_NAME "Threshold"
+
 //==============================================================================
 /**
 */
@@ -59,11 +62,13 @@ public:
     float attackTime;
     float releaseTime;
 
-    
+    AudioProcessorValueTreeState treeState;
+    AudioProcessorValueTreeState::ParameterLayout createParameterLayout();
     
 private:
     
     Compressor compress;
+    
     
     dsp::Gain<float> gain;
     dsp::ProcessSpec spec;

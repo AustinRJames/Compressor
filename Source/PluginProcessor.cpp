@@ -20,13 +20,30 @@ ChannelStripAudioProcessor::ChannelStripAudioProcessor()
                       #endif
                        .withOutput ("Output", juce::AudioChannelSet::stereo(), true)
                      #endif
-                       )
+                       ),
+
+    treeState(*this, nullptr, "ThreshParams", createParameterLayout())
+
+
+
+
 #endif
 {
+    
 }
+
 
 ChannelStripAudioProcessor::~ChannelStripAudioProcessor()
 {
+}
+
+AudioProcessorValueTreeState::ParameterLayout ChannelStripAudioProcessor::createParameterLayout(){
+    std::vector<std::unique_ptr<RangedAudioParameter>> params;
+    
+    params.push_back(std::make_unique<AudioParameterFloat>(THRESH_ID,THRESH_NAME, -50.0f, 5.0f, 0.f) );
+    
+    return {params.begin(), params.end()    };
+    
 }
 
 //==============================================================================
@@ -141,6 +158,7 @@ void ChannelStripAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     
     dsp::AudioBlock<float> block (buffer);
     
+    
     compress.setParameters(threshold, ratio, attackTime, releaseTime);
     
     compress.process(dsp::ProcessContextReplacing<float> (block));
@@ -162,15 +180,24 @@ juce::AudioProcessorEditor* ChannelStripAudioProcessor::createEditor()
 //==============================================================================
 void ChannelStripAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
-    // You should use this method to store your parameters in the memory block.
-    // You could do that either as raw data, or use the XML or ValueTree classes
-    // as intermediaries to make it easy to save and load complex data.
+   
+    auto currentState = treeState.copyState();
+    std::unique_ptr<XmlElement> xml (currentState.createXml());
+    copyXmlToBinary(*xml, destData);
+    
+    
+    
 }
 
 void ChannelStripAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    // You should use this method to restore your parameters from this memory block,
-    // whose contents will have been created by the getStateInformation() call.
+
+    std::unique_ptr<XmlElement> xml (getXmlFromBinary(data, sizeInBytes ));
+    if (xml && xml->hasTagName("ThreshParams")){
+        treeState.replaceState(ValueTree::fromXml(*xml));
+
+    }
+    
 }
 
 //==============================================================================

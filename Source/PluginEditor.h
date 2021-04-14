@@ -16,7 +16,7 @@
 */
 class ChannelStripAudioProcessorEditor  :
     public juce::AudioProcessorEditor,
-    public juce::Slider::Listener,
+    
     public juce::ComboBox::Listener
                                         
 {
@@ -28,11 +28,13 @@ public:
     void paint (juce::Graphics&) override;
     void resized() override;
     
-    void sliderValueChanged(juce::Slider *slider) override;
+   // void sliderValueChanged(juce::Slider *slider) override;
     void comboBoxChanged(juce::ComboBox *comboBox) override;
     void attackTimeChanged(juce::Slider *slider) ;
     void releaseTimeChanged(juce::Slider *slider) ;
-
+    
+    std::vector<std::unique_ptr<AudioProcessorValueTreeState::SliderAttachment>> sliderAttachments;
+    
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.

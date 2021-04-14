@@ -17,6 +17,8 @@ ChannelStripAudioProcessorEditor::ChannelStripAudioProcessorEditor (ChannelStrip
     // editor's size to whatever you need it to be.
     setSize (500, 200  );
     
+    //sliderAttachments = std::make_unique<AudioProcessorValueTreeState::SliderAttachment>(audioProcessor.treeState, "threshold", thresholdSlider);
+    sliderAttachments.emplace_back(new AudioProcessorValueTreeState::SliderAttachment(audioProcessor.treeState, "threshold", thresholdSlider));
     
     addAndMakeVisible(thresholdLabel);
     thresholdLabel.setText("Threshold", juce::dontSendNotification);
@@ -56,7 +58,7 @@ ChannelStripAudioProcessorEditor::ChannelStripAudioProcessorEditor (ChannelStrip
     addAndMakeVisible(ratioSelector);
 
 
-    attackTimeSlider.addListener(this);
+
     attackTimeSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 75, 25);
     attackTimeSlider.setRange(1, 1000, 1);
     attackTimeSlider.setTextValueSuffix("ms");
@@ -65,7 +67,7 @@ ChannelStripAudioProcessorEditor::ChannelStripAudioProcessorEditor (ChannelStrip
     addAndMakeVisible(attackTimeSlider);
     
     
-    releaseTimeSlider.addListener(this);
+
     releaseTimeSlider.setTextBoxStyle(juce::Slider::TextBoxAbove, true, 75, 25);
     releaseTimeSlider.setRange(1, 1000, 1);
     releaseTimeSlider.setTextValueSuffix("ms");
@@ -99,11 +101,6 @@ void ChannelStripAudioProcessorEditor::resized()
     thresholdSlider.setBounds(getLocalBounds());
 }
 
-void ChannelStripAudioProcessorEditor::sliderValueChanged(juce::Slider *slider){
-    if (slider == &thresholdSlider){
-        audioProcessor.threshold = thresholdSlider.getValue();
-    }
-}
 
 void ChannelStripAudioProcessorEditor::comboBoxChanged(juce::ComboBox *comboBox){
     if (comboBox == &ratioSelector){
